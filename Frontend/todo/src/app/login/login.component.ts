@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-// import { BasicAuthenticationService } from '../service/basic-authentication.service';
+ import { BasicAuthenticationService } from '../service/basic-authentication.service';
  import {HardcodedAuthenticationService } from '../service/HardcodedAuthenticationService';
 
 @Component({
@@ -17,8 +17,25 @@ export class LoginComponent {
 
     constructor(private router:Router,
        private hardcodedAuthenticationService: HardcodedAuthenticationService,
-      //  private basicAuthenticationService: BasicAuthenticationService
+       private basicAuthenticationService: BasicAuthenticationService
       ){}
+
+       handleBasicAuthLogin(){
+      // console.log(this.username);
+     // if(this.username === "Adhish" && this.password === 'root'){
+        this.basicAuthenticationService.executeAuthenticationService(this.username, this.password)
+        .subscribe(
+          data => {
+            console.log(data)
+            this.router.navigate(['welcome', this.username])
+            this.invalidLogin = false      
+          },
+          error => {
+            console.log(error)
+            this.invalidLogin = true
+          }
+        )
+  }
 
       handleLogin(){
         // console.log(this.username);
@@ -34,20 +51,5 @@ export class LoginComponent {
     
 
 
-  //   handleBasicAuthLogin(){
-  //     // console.log(this.username);
-  //    // if(this.username === "Adhish" && this.password === 'root'){
-  //      this.basicAuthenticationService.executeAuthenticationService(this.username, this.password)
-  //       .subscribe(
-  //         data => {
-  //           console.log(data)
-  //           this.router.navigate(['welcome', this.username])
-  //           this.invalidLogin = false      
-  //         },
-  //         error => {
-  //           console.log(error)
-  //           this.invalidLogin = true
-  //         }
-  //       );
-  // }
+   
 }

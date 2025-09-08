@@ -22,7 +22,7 @@ public class HelloWorldController {
 //        throw new RuntimeException("Some error occurred");
        return new HelloWorldBean ("Welcome to world!");
     }
-
+    @CrossOrigin(origins="http://localhost:4200")
 //returning path variable
 @GetMapping( path="/hello-world/path-variable/{name}")
 public HelloWorldBean helloWorldBean(@PathVariable String name) {
