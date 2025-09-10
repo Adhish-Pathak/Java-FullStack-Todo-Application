@@ -20,6 +20,22 @@ export class LoginComponent {
        private basicAuthenticationService: BasicAuthenticationService
       ){}
 
+   handleJWTAuthLogin() {
+    this.basicAuthenticationService.executeJWTAuthenticationService(this.username, this.password)
+        .subscribe(
+          data => {
+            console.log("Login success:",data)
+            this.router.navigate(['welcome', this.username])
+            this.invalidLogin = false
+          },
+          error => {
+            console.log(error)
+            this.invalidLogin = true
+          }
+        )
+  }
+    
+
        handleBasicAuthLogin(){
       // console.log(this.username);
      // if(this.username === "Adhish" && this.password === 'root'){
@@ -48,8 +64,5 @@ export class LoginComponent {
       this.invalidLogin = true
     }
   }
-    
-
-
    
 }

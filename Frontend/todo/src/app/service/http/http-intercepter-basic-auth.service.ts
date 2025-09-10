@@ -9,7 +9,8 @@ import { BasicAuthenticationService } from '../basic-authentication.service';
 export class HttpIntercepterBasicAuthService implements HttpInterceptor{
 
   constructor(
-     private basicAuthenticationService : BasicAuthenticationService
+     private basicAuthenticationService : BasicAuthenticationService,
+   
   ) { }
 
 
@@ -29,5 +30,6 @@ intercept(request: HttpRequest<any>, next: HttpHandler){
     }
     return next.handle(request);
   }
+
     
 }

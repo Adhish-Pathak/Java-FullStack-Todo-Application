@@ -11,7 +11,7 @@ import java.util.Date;
 public class TodoHardCodedService {
 
     private static List<Todo> todos = new ArrayList<>();
-    private static int idCounter = 0;
+    private static long idCounter = 0;
     static{
         todos.add(new Todo(++idCounter, "Adhish", "Learn to Code", new Date(), false));
         todos.add(new Todo(++idCounter, "Adhish", "Learn about Microservices", new Date(), false));
