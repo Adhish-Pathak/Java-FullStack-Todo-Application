@@ -19,6 +19,9 @@ public class Todo {
     private String description;
     private Date targetDate;
     private boolean isDone;
+    
+    protected Todo() {
+    }
 
     public Todo(long id, String username, String description, Date targetDate, boolean isDone) {
         this.id = id;
@@ -27,8 +30,7 @@ public class Todo {
         this.targetDate = targetDate;
         this.isDone = isDone;
     }
-    public Todo() {
-    }
+    
 
     public Long getId() {
         return id;
@@ -70,15 +72,25 @@ public class Todo {
         isDone = done;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Todo todo = (Todo) o;
-        return id == todo.id;
-    }
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		return result;
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Todo other = (Todo) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
 }

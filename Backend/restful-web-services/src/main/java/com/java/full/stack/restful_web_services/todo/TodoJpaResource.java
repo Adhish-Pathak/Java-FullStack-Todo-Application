@@ -37,26 +37,27 @@ public class TodoJpaResource {
     //DELETE
     @DeleteMapping("/jpa/users/{username}/todos/{id}")
     public ResponseEntity<Void> deleteTodo(@PathVariable String username, @PathVariable long id){
-        Todo todo= todoService.deleteById(id);
-        {
-            if(todo!=null){
+//        Todo todo= todoService.deleteById(id);
+    	todoJpaRepository.deleteById(id);     
                 return ResponseEntity.noContent().build();
-            }
-            return  ResponseEntity.notFound().build();
+//            return  ResponseEntity.notFound().build();
         }
-    }
 
     //Edit/Update a todo
     @PutMapping("/jpa/users/{username}/todos/{id}")
     public ResponseEntity<Todo> UpdateTodo(@PathVariable String username, @PathVariable long id, @RequestBody Todo todo){
-        Todo todoUpdated=todoService.save(todo);
+//        Todo todoUpdated=todoService.save(todo);
+    	Todo todoUpdated=todoJpaRepository.save(todo);
         return new ResponseEntity<Todo>(todo, HttpStatus.OK);
     }
 
     //Create a new todo
     @PostMapping("/jpa/users/{username}/todos")
-    public ResponseEntity<Void> UpdateTodo(@PathVariable String username, @RequestBody Todo todo){
-        Todo createdTodo=todoService.save(todo);
+    public ResponseEntity<Void> createTodo(@PathVariable String username, @RequestBody Todo todo){
+//      Todo createdTodo=todoService.save(todo);
+    	todo.setUsername(username);
+    	todo.setId(null);
+  	Todo createdTodo=todoJpaRepository.save(todo);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(createdTodo.getId()).toUri();
         return ResponseEntity.created(uri).build();
